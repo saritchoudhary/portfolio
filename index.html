@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sarit Choudhary — Cybersecurity Student & Builder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Oswald:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-theme="dark">
+<canvas class="particle-field" id="particleField" aria-hidden="true"></canvas>
+
+<!-- ─── NAV ─── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">SARIT<span class="dot">.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Expertise</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="sarit final resume.pdf" download class="btn-nav">Resume ↓</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about">About</a>
+    <a href="#skills">Expertise</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section id="hero" class="hero">
+  <div class="hero-watermark" aria-hidden="true">PORTFOLIO</div>
+  <div class="hero-device">
+    <div class="hero-screen">
+      <div class="hero-screen-nav">
+        <a class="screen-mark" href="#hero">SARIT<span>.</span></a>
+        <span class="screen-label">CYBERSECURITY / COMPUTER SCIENCE</span>
+        <div class="screen-links">
+          <a href="#about">ABOUT</a>
+          <a href="#skills">EXPERTISE</a>
+          <a href="#projects">WORK</a>
+          <a href="#contact">CONTACT</a>
+        </div>
+      </div>
+      <div class="hero-grid">
+        <div class="hero-text reveal">
+          <p class="hero-pre">HELLO, WORLD<span>!</span></p>
+          <h1 class="hero-name">Hi, I'm<br><em>Sarit</em></h1>
+          <p class="hero-surname">COMPUTER SCIENCE STUDENT · CYBERSECURITY</p>
+          <p class="hero-bio">I explore cybersecurity by building, testing, and asking better questions. Currently turning curiosity into practical projects.</p>
+          <div class="hero-cta">
+            <a href="mailto:saritsherawat@gmail.com" class="btn-primary">Contact me <span aria-hidden="true">↗</span></a>
+            <a href="sarit final resume.pdf" download class="hero-resume-link">Download résumé ↓</a>
+          </div>
+          <div class="hero-socials">
+        <a href="https://github.com/saritchoudhary" target="_blank" rel="noopener" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/saritsherawat/" target="_blank" rel="noopener" title="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="mailto:saritsherawat@gmail.com" title="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+          </div>
+        </div>
+        <div class="hero-visual reveal" aria-label="Animated 3D illustrated cybersecurity student">
+          <div class="avatar-halo" aria-hidden="true"></div>
+          <canvas id="heroCanvas" aria-label="An original animated 3D character"></canvas>
+          <span class="avatar-tag">CURIOUS BY DESIGN</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-laptop-base" aria-hidden="true"></div>
+  </div>
+  <div class="hero-bottom-label"><span>PORTFOLIO</span> WEBSITE <i>·</i> SARIT CHOUDHARY</div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section id="about" class="section">
+  <div class="container">
+    <div class="section-label reveal">01 / About</div>
+    <h2 class="section-heading reveal">Who I Am</h2>
+    <div class="intro-playground reveal" aria-labelledby="introTitle">
+      <div class="intro-topline"><span>GET TO KNOW ME</span><span>SC · INDIA</span></div>
+      <h2 id="introTitle">Pick a starting point.</h2>
+      <div class="intro-choices" role="group" aria-label="Choose what to discover about Sarit">
+        <button type="button" class="intro-choice active" data-story="build" aria-pressed="true"><span>01</span> Things I build</button>
+        <button type="button" class="intro-choice" data-story="think" aria-pressed="false"><span>02</span> How I think</button>
+        <button type="button" class="intro-choice" data-story="reset" aria-pressed="false"><span>03</span> Life off-screen</button>
+      </div>
+      <div class="intro-reveal" id="introReveal" aria-live="polite" aria-atomic="true">
+        <span class="intro-reveal-label">THE BUILDER</span>
+        <p>I made a WiFi attack simulator with an ESP8266, then built this portfolio to make the work easier to explore.</p>
+      </div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I’m pursuing a <strong>Bachelor of Technology in Computer Science and Engineering at Lovely Professional University</strong>. My work sits where software meets security: I like understanding how systems behave, where they can fail, and how to make those ideas understandable to other people.</p>
+        <p>Recently, I built an educational WiFi attack simulator with an ESP8266 and completed cybersecurity essentials training covering network security, secure communication, encryption, and threat prevention.</p>
+        <p class="career-goal"><em>My favorite kind of learning is hands-on: build a small thing, test what breaks, and leave it better understood than I found it.</em></p>
+      </div>
+      <div class="about-cards reveal">
+        <div class="info-card">
+          <div class="info-icon">🎓</div>
+          <div>
+            <div class="info-label">Institution</div>
+            <div class="info-value">Lovely Professional University</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">📘</div>
+          <div>
+            <div class="info-label">Degree</div>
+            <div class="info-value">B.Tech — Computer Science & Engineering</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">📅</div>
+          <div>
+            <div class="info-label">Year</div>
+            <div class="info-value">Aug 2023 — Present</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">⭐</div>
+          <div>
+            <div class="info-label">CGPA</div>
+            <div class="info-value">6.45</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">◎</div>
+          <div>
+            <div class="info-label">Based between</div>
+            <div class="info-value">Punjab & Rajasthan, India</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SKILLS ─── -->
+<section id="skills" class="section section-alt">
+  <div class="container">
+    <div class="section-label reveal">02 / Skills</div>
+    <h2 class="section-heading reveal">Technical Arsenal</h2>
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <h3 class="skill-group-title">
+          <span class="skill-icon-group">{"}"}</span>
+          Programming Languages
+        </h3>
+        <div class="skill-badges">
+          <span class="badge badge-lang">Python</span>
+          <span class="badge badge-lang">C++</span>
+          <span class="badge badge-lang">JavaScript</span>
+          <span class="badge badge-lang">Bash / Shell</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <h3 class="skill-group-title">
+          <span class="skill-icon-group">⚙</span>
+          Frameworks
+        </h3>
+        <div class="skill-badges">
+          <span class="badge badge-tool">HTML</span>
+          <span class="badge badge-tool">CSS</span>
+          <span class="badge badge-tool">Node.js</span>
+          <span class="badge badge-tool">React</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <h3 class="skill-group-title">
+          <span class="skill-icon-group">🛡</span>
+          Tools & Platforms
+        </h3>
+        <div class="skill-badges">
+          <span class="badge badge-sec">Kali Linux</span>
+          <span class="badge badge-sec">Wireshark</span>
+          <span class="badge badge-sec">Nmap</span>
+          <span class="badge badge-sec">ESP8266</span>
+          <span class="badge badge-sec">Arduino IDE</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <h3 class="skill-group-title">
+          <span class="skill-icon-group">✦</span>
+          Strengths
+        </h3>
+        <div class="skill-badges">
+          <span class="badge badge-soft">Problem Solving</span>
+          <span class="badge badge-soft">Adaptability</span>
+          <span class="badge badge-soft">Critical Thinking</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROJECTS ─── -->
+<section id="projects" class="section">
+  <div class="container">
+    <div class="section-label reveal">03 / Projects</div>
+    <h2 class="section-heading reveal">Featured Work</h2>
+    <div class="projects-grid">
+
+      <!-- Project 1 -->
+      <div class="project-card reveal">
+        <div class="project-screenshot">
+          <div class="screenshot-placeholder">
+            <span class="project-visual-mark">01</span>
+            <span>SECURITY / ESP8266</span>
+          </div>
+          <div class="project-date">OCT — NOV 2025</div>
+        </div>
+        <div class="project-body">
+          <h3 class="project-name">WiFi Attack Simulator</h3>
+          <p class="project-desc">An educational cybersecurity project that demonstrates how common WiFi attack techniques work, in a controlled environment built for awareness and ethical learning.</p>
+          <ul class="project-highlights">
+            <li>ESP8266-based access point and captive-portal simulation</li>
+            <li>DNS redirection and a browser-based interface</li>
+            <li>Designed to explain risks and responsible security practices</li>
+          </ul>
+          <div class="project-tech">
+            <span class="tech-badge">ESP8266</span>
+            <span class="tech-badge">C++</span>
+            <span class="tech-badge">Arduino IDE</span>
+            <span class="tech-badge">HTML / CSS / JS</span>
+            <span class="tech-badge">WiFi libraries</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/saritchoudhary" target="_blank" rel="noopener" class="btn-project">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              Explore GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-screenshot">
+          <div class="screenshot-placeholder">
+            <span class="project-visual-mark">02</span>
+            <span>DESIGN / FRONT END</span>
+          </div>
+          <div class="project-date">JUL — NOV 2025</div>
+        </div>
+        <div class="project-body">
+          <h3 class="project-name">Personal Portfolio Website</h3>
+          <p class="project-desc">A responsive portfolio designed to make projects, skills, and education easy to explore, with a clear path from first impression to getting in touch.</p>
+          <ul class="project-highlights">
+            <li>Built the interface and interactions from scratch</li>
+            <li>Responsive layouts and smooth in-page navigation</li>
+            <li>Project details and contact links gathered in one place</li>
+          </ul>
+          <div class="project-tech">
+            <span class="tech-badge">HTML</span>
+            <span class="tech-badge">CSS</span>
+            <span class="tech-badge">JavaScript</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/saritchoudhary" target="_blank" rel="noopener" class="btn-project">Explore GitHub ↗</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── EXPERIENCE ─── -->
+<section id="experience" class="section section-alt">
+  <div class="container">
+    <div class="section-label reveal">04 / Experience</div>
+    <h2 class="section-heading reveal">Training & Experience</h2>
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <div>
+              <h3 class="timeline-title">Cyber Security Essentials</h3>
+              <div class="timeline-org">Jun — Jul 2025</div>
+            </div>
+            <div class="timeline-period">TRAINING</div>
+          </div>
+          <ul class="timeline-points">
+            <li>Completed training in cybersecurity principles and network security</li>
+            <li>Studied secure communication, encryption basics, and common threat types</li>
+            <li>Practiced vulnerability scanning, password hardening, and firewall configuration</li>
+            <li>Explored safeguards for systems and data</li>
+          </ul>
+          <div class="timeline-tags">
+            <span>Networking</span>
+            <span>Firewalls</span>
+            <span>Encryption</span>
+            <span>Scanning</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EDUCATION ─── -->
+<section id="education" class="section">
+  <div class="container">
+    <div class="section-label reveal">05 / Education</div>
+    <h2 class="section-heading reveal">Academic Journey</h2>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <div class="edu-icon">🏛</div>
+        <div class="edu-body">
+          <h3>Lovely Professional University</h3>
+          <div class="edu-degree">B.Tech — Computer Science & Engineering</div>
+          <div class="edu-period">Aug 2023 — Present · Punjab, India</div>
+          <div class="edu-score">CGPA: <strong>6.45</strong></div>
+        </div>
+        <div class="edu-badge current">Current</div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-icon">🏫</div>
+        <div class="edu-body">
+          <h3>Matrix High School</h3>
+          <div class="edu-degree">Intermediate (12th)</div>
+          <div class="edu-period">Apr 2019 — Mar 2022 · Sikar, Rajasthan</div>
+          <div class="edu-score">Intermediate: <strong>65%</strong></div>
+        </div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-icon">📚</div>
+        <div class="edu-body">
+          <h3>Indra Pratap Singh Senior Secondary School</h3>
+          <div class="edu-degree">Matriculation (10th)</div>
+          <div class="edu-period">Apr 2019 — Mar 2020 · Jobner, Rajasthan</div>
+          <div class="edu-score">Matriculation: <strong>87%</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ACHIEVEMENTS ─── -->
+<section id="achievements" class="section section-alt">
+  <div class="container">
+    <div class="section-label reveal">06 / Achievements</div>
+    <h2 class="section-heading reveal">Milestones</h2>
+    <div class="achievements-grid">
+      <div class="achievement-card reveal">
+        <div class="achievement-icon">01</div>
+        <h3>University Hackathon</h3>
+        <p class="achievement-placeholder">Runner-up with an AI-driven project prototype.</p>
+        <div class="achievement-status">Runner-up</div>
+      </div>
+      <div class="achievement-card reveal">
+        <div class="achievement-icon">02</div>
+        <h3>Innovation Challenge</h3>
+        <p class="achievement-placeholder">Presented project ideas at a department-level challenge at LPU.</p>
+        <div class="achievement-status">LPU</div>
+      </div>
+      <div class="achievement-card reveal">
+        <div class="achievement-icon">03</div>
+        <h3>Advance Compute Networks</h3>
+        <p class="achievement-placeholder">NPTEL certification; strengthened knowledge of TCP/IP, routing, and switching.</p>
+        <div class="achievement-status">55% · NPTEL</div>
+      </div>
+      <div class="achievement-card reveal">
+        <div class="achievement-icon">04</div>
+        <h3>AI Essentials for Beginners</h3>
+        <p class="achievement-placeholder">ChatGPT Made Easy: an introduction to essential AI concepts.</p>
+        <div class="achievement-status">AUG 2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── OPEN SOURCE ─── -->
+<section id="opensource" class="section">
+  <div class="container">
+    <div class="section-label reveal">07 / Open Source</div>
+    <h2 class="section-heading reveal">GitHub Activity</h2>
+    <div class="github-profile-card reveal">
+      <div class="gh-header">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        <div>
+          <h3>github.com/saritchoudhary</h3>
+          <p>Building in public · Open to collaboration</p>
+        </div>
+      </div>
+      <div class="gh-stats">
+        <div class="gh-stat">
+          <div class="gh-stat-num" id="gh-repos">—</div>
+          <div class="gh-stat-label">Repositories</div>
+        </div>
+        <div class="gh-stat">
+          <div class="gh-stat-num" id="gh-stars">—</div>
+          <div class="gh-stat-label">Stars Earned</div>
+        </div>
+        <div class="gh-stat">
+          <div class="gh-stat-num" id="gh-followers">—</div>
+          <div class="gh-stat-label">Followers</div>
+        </div>
+        <div class="gh-stat">
+          <div class="gh-stat-num" id="gh-following">—</div>
+          <div class="gh-stat-label">Following</div>
+        </div>
+      </div>
+      <div class="gh-repo-list" id="ghRepoList">
+        <div class="gh-loading">Fetching repositories…</div>
+      </div>
+      <a href="https://github.com/saritchoudhary" target="_blank" rel="noopener" class="btn-primary" style="margin-top:2rem; display:inline-flex;">
+        View Full Profile →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact" class="section section-alt">
+  <div class="container">
+    <div class="section-label reveal">08 / Contact</div>
+    <h2 class="section-heading reveal">Let's Connect</h2>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-label">Location</div>
+            <div class="contact-value">Punjab, India · +91 95211 16425</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <div class="contact-label">Email</div>
+            <a href="mailto:saritsherawat@gmail.com" class="contact-value contact-link">saritsherawat@gmail.com</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">💼</div>
+          <div>
+            <div class="contact-label">LinkedIn</div>
+            <a href="https://www.linkedin.com/in/saritsherawat/" target="_blank" rel="noopener" class="contact-value contact-link">linkedin.com/in/saritsherawat</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">⌨️</div>
+          <div>
+            <div class="contact-label">GitHub</div>
+            <a href="https://github.com/saritchoudhary" target="_blank" rel="noopener" class="contact-value contact-link">github.com/saritchoudhary</a>
+          </div>
+        </div>
+      </div>
+      <form class="contact-form reveal" id="contactForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your full name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required />
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" placeholder="Say hello or ask something…" required></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%; justify-content:center;">
+          <span id="sendLabel">Send Message</span>
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+        <div id="formFeedback" class="form-feedback" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">SARIT<span class="dot">.</span></div>
+    <p class="footer-text">Crafted with care by Sarit Choudhary · Punjab, India</p>
+    <div class="footer-socials">
+      <a href="https://github.com/saritchoudhary" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/saritsherawat/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:saritsherawat@gmail.com">Email</a>
+    </div>
+    <p class="footer-copy">© 2025 Sarit Choudhary. All rights reserved.</p>
+  </div>
+</footer>
+
+<div class="cursor-orb" id="cursorOrb" aria-hidden="true"><span></span></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
