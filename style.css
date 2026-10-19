@@ -977,3 +977,79 @@ body { text-shadow: var(--type-shadow); }
   text-shadow: 0 1px 0 rgba(255,255,255,0.18), 0 2px 0 rgba(38,25,59,0.92), 0 4px 0 rgba(19,14,32,0.72), 0 9px 18px rgba(0,0,0,0.56);
 }
 .hero-watermark { text-shadow: 0 4px 0 rgba(255,107,145,0.12), 0 12px 28px rgba(0,0,0,0.36); }
+
+/* Cinematic motion accents */
+.scroll-progress {
+  position: fixed; inset: 0 auto auto 0; z-index: 1200;
+  width: 100%; height: 3px; pointer-events: none;
+  transform: scaleX(var(--scroll-progress, 0)); transform-origin: left center;
+  background: linear-gradient(90deg, #74e8c5, #b67cff 55%, #ff6b91);
+  box-shadow: 0 0 14px rgba(182,124,255,0.65);
+}
+.hero-screen {
+  animation: screen-arrive 1s cubic-bezier(.2,.75,.2,1), screen-float 8s ease-in-out 1s infinite;
+}
+.hero-screen::before {
+  content: ''; position: absolute; z-index: 2; inset: 0; pointer-events: none;
+  background: linear-gradient(115deg, transparent 25%, rgba(255,255,255,0.055) 48%, transparent 65%);
+  transform: translateX(-130%); animation: screen-sweep 1.6s cubic-bezier(.2,.7,.2,1) 0.65s both;
+}
+.hero-screen-nav, .hero-grid { position: relative; z-index: 3; }
+.avatar-halo {
+  animation: halo-breathe 4s ease-in-out infinite;
+  box-shadow: 0 0 50px rgba(177,104,255,0.08), inset 0 0 40px rgba(177,104,255,0.05);
+}
+.avatar-halo::before, .avatar-halo::after {
+  content: ''; position: absolute; inset: -9%; border: 1px solid rgba(116,232,197,0.2);
+  border-radius: 50%; transform: rotate(-24deg) scaleY(.44);
+}
+.avatar-halo::before { animation: orbit-spin 12s linear infinite; }
+.avatar-halo::after {
+  inset: -16%; border-color: rgba(255,107,145,0.16); transform: rotate(48deg) scaleY(.35);
+  animation: orbit-spin 17s linear infinite reverse;
+}
+.hero-visual::before {
+  content: ''; position: absolute; z-index: 2; left: 4%; right: 4%; top: 18%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(116,232,197,.72), transparent);
+  box-shadow: 0 0 18px rgba(116,232,197,.65); opacity: 0;
+  animation: scan-pass 5s ease-in-out 1s infinite;
+}
+.hero-pre, .hero-surname, .hero-bio, .hero-cta, .hero-socials {
+  animation: text-arrive .7s cubic-bezier(.2,.75,.2,1) both;
+}
+.hero-pre { animation-delay: .12s; }
+.hero-surname { animation-delay: .28s; }
+.hero-bio { animation-delay: .4s; }
+.hero-cta { animation-delay: .52s; }
+.hero-socials { animation-delay: .64s; }
+.section-heading { position: relative; width: fit-content; }
+.section-heading::after {
+  content: ''; position: absolute; left: 0; bottom: -.18em; width: 100%; height: 2px;
+  transform: scaleX(0); transform-origin: left; transition: transform .7s cubic-bezier(.2,.75,.2,1);
+  background: linear-gradient(90deg, var(--accent), var(--accent-2), transparent);
+}
+.section-heading.visible::after { transform: scaleX(1); }
+.project-card, .skill-group, .achievement-card, .edu-card, .timeline-card {
+  position: relative; overflow: hidden;
+}
+.project-card::after, .skill-group::after, .achievement-card::after, .edu-card::after, .timeline-card::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0;
+  background: linear-gradient(115deg, transparent 20%, rgba(255,255,255,.055) 48%, transparent 72%);
+  transform: translateX(-100%); transition: opacity .25s ease;
+}
+.project-card:hover::after, .skill-group:hover::after, .achievement-card:hover::after,
+.edu-card:hover::after, .timeline-card:hover::after { opacity: 1; animation: card-glint .8s ease both; }
+@keyframes screen-arrive { from { opacity: 0; transform: translateY(30px) scale(.975); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes screen-float { 0%,100% { translate: 0 0; } 50% { translate: 0 -5px; } }
+@keyframes screen-sweep { to { transform: translateX(130%); } }
+@keyframes text-arrive { from { opacity: 0; translate: 0 16px; } to { opacity: 1; translate: 0 0; } }
+@keyframes halo-breathe { 0%,100% { scale: .98; opacity: .72; } 50% { scale: 1.03; opacity: 1; } }
+@keyframes orbit-spin { to { rotate: 360deg; } }
+@keyframes scan-pass { 0%,15% { top: 18%; opacity: 0; } 25% { opacity: .8; } 70% { top: 82%; opacity: .5; } 85%,100% { top: 82%; opacity: 0; } }
+@keyframes card-glint { to { transform: translateX(100%); } }
+@media (prefers-reduced-motion: reduce) {
+  .hero-screen, .hero-pre, .hero-surname, .hero-bio, .hero-cta, .hero-socials,
+  .avatar-halo, .avatar-halo::before, .avatar-halo::after, .hero-visual::before { animation: none; }
+  .hero-screen::before, .project-card::after, .skill-group::after, .achievement-card::after,
+  .edu-card::after, .timeline-card::after { display: none; }
+}

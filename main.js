@@ -4,8 +4,12 @@
 
 // ── NAVBAR SCROLL ──
 const navbar = document.getElementById('navbar');
+const scrollProgress = document.getElementById('scrollProgress');
 window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 24);
+  const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = scrollableHeight > 0 ? window.scrollY / scrollableHeight : 0;
+  scrollProgress?.style.setProperty('--scroll-progress', `${Math.min(1, Math.max(0, progress))}`);
 });
 
 // ── FULL-PAGE PARTICLE FIELD ──
