@@ -196,6 +196,70 @@ const cursorOrb = document.getElementById('cursorOrb');
 const finePointer = window.matchMedia('(pointer: fine)').matches;
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 initParticleField();
+
+// â”€â”€ INTRO PIXEL SWARM â”€â”€
+function initIntroPixels() {
+  const canvas = document.getElementById('introPixels');
+  const context = canvas?.getContext('2d');
+  if (!canvas || !context) return;
+
+  const pixels = [];
+  let width = 0;
+  let height = 0;
+  let frame = 0;
+
+  function resizePixels() {
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
+    width = canvas.clientWidth;
+    height = canvas.clientHeight;
+    canvas.width = Math.round(width * pixelRatio);
+    canvas.height = Math.round(height * pixelRatio);
+    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+
+    pixels.length = 0;
+    const pixelCount = Math.max(45, Math.min(110, Math.round(width / 8)));
+    for (let index = 0; index < pixelCount; index += 1) {
+      const angle = Math.random() * Math.PI * 2;
+      const distance = Math.pow(Math.random(), 0.72) * Math.min(width * 0.25, height * 0.38);
+      const colorChoice = Math.random();
+      pixels.push({
+        angle,
+        distance,
+        size: 1.4 + Math.random() * 3.4,
+        phase: Math.random() * Math.PI * 2,
+        hue: colorChoice < 0.62 ? 215 + Math.random() * 24 : colorChoice < 0.9 ? 188 + Math.random() * 22 : 255
+      });
+    }
+    drawPixels(0, false);
+  }
+
+  function drawPixels(time, scheduleNextFrame = true) {
+    context.clearRect(0, 0, width, height);
+    const centerX = width * 0.45;
+    const centerY = height * 0.57;
+    const motion = prefersReducedMotion ? 0 : time * 0.00016;
+
+    pixels.forEach(pixel => {
+      const angle = pixel.angle + motion;
+      const drift = prefersReducedMotion ? 0 : Math.sin(time * 0.001 + pixel.phase) * 5;
+      const x = centerX + Math.cos(angle) * pixel.distance + drift;
+      const y = centerY + Math.sin(angle) * pixel.distance * 0.62;
+      const shimmer = prefersReducedMotion ? 0.7 : 0.34 + (Math.sin(time * 0.002 + pixel.phase) + 1) * 0.28;
+      context.fillStyle = `hsla(${pixel.hue}, 92%, 76%, ${shimmer})`;
+      context.shadowColor = `hsla(${pixel.hue}, 100%, 70%, ${shimmer * 0.65})`;
+      context.shadowBlur = pixel.size * 2.5;
+      context.fillRect(x, y, pixel.size, pixel.size);
+    });
+    context.shadowBlur = 0;
+    if (!prefersReducedMotion && scheduleNextFrame) frame = window.requestAnimationFrame(drawPixels);
+  }
+
+  new ResizeObserver(resizePixels).observe(canvas);
+  resizePixels();
+  if (!prefersReducedMotion) frame = window.requestAnimationFrame(drawPixels);
+}
+
+initIntroPixels();
 const depthSelector = '.hero-screen, .section, .info-card, .skill-group, .project-card, .timeline-card, .edu-card, .achievement-card, .github-profile-card, .gh-repo-card, .contact-item';
 const magneticSelector = '.hero-screen-nav a, .navbar a, .mobile-menu a, .hero-cta a, .hero-socials a, .btn-project, .intro-choice';
 
