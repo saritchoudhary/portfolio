@@ -1094,7 +1094,7 @@ body { text-shadow: var(--type-shadow); }
 }
 .hero-grid {
   position: relative; z-index: 3; grid-template-columns: minmax(0, 1fr) minmax(270px, .78fr);
-  min-height: 360px; padding: .5rem clamp(2rem, 8vw, 7rem) 1rem; gap: clamp(1.5rem, 7vw, 6rem);
+  min-height: 430px; padding: .5rem clamp(2rem, 8vw, 7rem) 1rem; gap: clamp(1.5rem, 7vw, 6rem);
 }
 .hero-text { padding-left: clamp(0rem, 4vw, 3rem); }
 .hero-pre { color: #94baff; font-size: .67rem; letter-spacing: .12em; }
@@ -1103,7 +1103,7 @@ body { text-shadow: var(--type-shadow); }
 .hero-surname { color: #a9b2c3; }
 .hero-bio { max-width: 390px; color: #b3bac8; }
 .hero-visual {
-  height: 290px; width: min(100%, 340px); justify-self: center; align-self: center; overflow: hidden;
+  height: 390px; width: min(100%, 340px); justify-self: center; align-self: center; overflow: hidden;
   border: 1px solid rgba(127,171,255,.78); border-radius: 10px;
   background: radial-gradient(ellipse at 50% 24%, rgba(73,103,157,.27), transparent 60%), #0a0c12;
   box-shadow: 0 0 0 4px rgba(111,159,246,.045), 0 18px 60px rgba(24,67,144,.24), 0 0 36px rgba(85,144,255,.12);
@@ -1113,6 +1113,18 @@ body { text-shadow: var(--type-shadow); }
 .hero-visual::after { content: none; }
 .avatar-halo, .avatar-halo::before, .avatar-halo::after { display: none; animation: none; }
 #heroCanvas { inset: 0 0 3.7rem; width: 100%; height: calc(100% - 3.7rem); }
+.model-loading {
+  position: absolute; z-index: 2; inset: 0 0 3.7rem; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: .75rem; color: #c5d5f1;
+  background: radial-gradient(ellipse at 50% 55%, rgba(32,48,74,.76), rgba(8,11,17,.82));
+  font: .56rem var(--font-mono); letter-spacing: .1em; transition: opacity .35s ease, visibility .35s ease;
+}
+.model-loading::before {
+  content: ''; width: 22px; height: 22px; border: 1px solid rgba(159,190,241,.3);
+  border-top-color: #a8c9ff; border-radius: 50%; animation: character-loader-spin .8s linear infinite;
+}
+.hero-visual.scene-ready .model-loading { opacity: 0; visibility: hidden; }
+.hero-visual.scene-error .model-loading { color: #ffb0b0; }
 .avatar-caption {
   position: absolute; z-index: 3; inset: auto 0 0; min-height: 3.75rem; padding: .65rem .8rem;
   display: flex; flex-direction: column; justify-content: center; gap: .16rem;
@@ -1135,6 +1147,7 @@ body { text-shadow: var(--type-shadow); }
 .scroll-hint { display: none; }
 @keyframes intro-title-in { from { opacity: 0; transform: translateY(22px) scale(.98); filter: blur(6px); } to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }
 @keyframes profile-card-float { 0%,100% { translate: 0 0; } 50% { translate: 0 -7px; } }
+@keyframes character-loader-spin { to { transform: rotate(360deg); } }
 @keyframes arrow-float { 0%,100% { translate: 0 0; } 50% { translate: 0 -5px; } }
 @media (max-width: 760px) {
   .hero-screen-nav { padding: 0 1rem; }
@@ -1144,7 +1157,7 @@ body { text-shadow: var(--type-shadow); }
   .hero-text { padding-left: 0; }
   .hero-name { font-size: 2.7rem; }
   .hero-bio { font-size: .8rem; line-height: 1.55; }
-  .hero-visual { height: 250px; }
+  .hero-visual { height: 320px; }
   .intro-feature-strip { width: calc(100% - 1.5rem); }
   .intro-feature-strip > div { padding-left: 1.5rem; padding-right: .35rem; }
   .intro-feature-strip b { left: .45rem; }
@@ -1162,7 +1175,7 @@ body { text-shadow: var(--type-shadow); }
   .hero-bio { max-width: 340px; margin: 0 auto .8rem; font-size: .78rem; }
   .hero-cta, .hero-socials { justify-content: center; }
   .hero-cta { margin-bottom: .75rem; }
-  .hero-visual { width: min(72%, 280px); height: 230px; }
+  .hero-visual { width: min(78%, 300px); height: 335px; }
   .intro-arrow { display: none; }
   .intro-pixels { inset: 15% 0 30%; width: 100%; height: 55%; }
   .intro-feature-strip { grid-template-columns: repeat(2, minmax(0,1fr)); width: calc(100% - 1.5rem); margin-top: .75rem; }
@@ -1171,6 +1184,6 @@ body { text-shadow: var(--type-shadow); }
   .intro-feature-strip > div:nth-child(4) { border-top: 1px solid rgba(183,197,225,.1); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-visual { animation: none; }
+  .hero-visual, .model-loading::before { animation: none; }
   .intro-headline h1, .intro-arrow { animation: none; }
 }

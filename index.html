@@ -85,10 +85,11 @@
         </a>
           </div>
         </div>
-        <div class="hero-visual reveal" aria-label="Animated 3D illustrated cybersecurity student">
+        <div class="hero-visual reveal" aria-label="Animated, realistic full-body 3D human character">
           <div class="avatar-halo" aria-hidden="true"></div>
-          <canvas id="heroCanvas" aria-label="An original animated 3D character"></canvas>
-          <div class="avatar-caption"><strong>SARIT CHOUDHARY</strong><span>CYBERSECURITY / COMPUTER SCIENCE</span></div>
+          <canvas id="heroCanvas" aria-label="Textured, rigged 3D human with an idle animation"></canvas>
+          <div class="model-loading" id="characterLoading" role="status" aria-live="polite">LOADING HUMAN MODEL</div>
+          <div class="avatar-caption"><strong>REALTIME 3D HUMAN</strong><span>FULL BODY / RIGGED IDLE ANIMATION</span></div>
         </div>
       </div>
       <div class="intro-feature-strip" aria-label="Portfolio highlights">
@@ -523,6 +524,7 @@
 
 <div class="cursor-orb" id="cursorOrb" aria-hidden="true"><span></span></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 <script src="main.js"></script>
 </body>
 </html>
