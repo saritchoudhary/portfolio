@@ -457,14 +457,14 @@ function initHeroCharacter() {
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(31, canvas.clientWidth / canvas.clientHeight, 0.1, 50);
-    camera.position.set(0, 0.15, 7.8);
-    scene.add(new THREE.HemisphereLight(0xffe8ef, 0x25223d, 0.9));
+    camera.position.set(0, 0.12, 8.1);
+    scene.add(new THREE.HemisphereLight(0xf4eee8, 0x252633, 1.05));
 
-    const keyLight = new THREE.DirectionalLight(0xffc6de, 1.5);
+    const keyLight = new THREE.DirectionalLight(0xffd9c8, 1.8);
     keyLight.position.set(-3, 4, 5);
     scene.add(keyLight);
 
-    const rimLight = new THREE.PointLight(0xc64cff, 6, 12);
+    const rimLight = new THREE.PointLight(0x668cff, 4.5, 12);
     rimLight.position.set(2.6, 1.5, -1.5);
     scene.add(rimLight);
 
@@ -476,86 +476,138 @@ function initHeroCharacter() {
     scene.add(character);
 
     const materials = {
-      skin: new THREE.MeshStandardMaterial({ color: 0xb96d58, roughness: 0.82 }),
-      skinLight: new THREE.MeshStandardMaterial({ color: 0xd98c70, roughness: 0.78 }),
-      hair: new THREE.MeshStandardMaterial({ color: 0x241238, roughness: 0.65 }),
-      hairLight: new THREE.MeshStandardMaterial({ color: 0x9b36ed, roughness: 0.64 }),
-      hoodie: new THREE.MeshStandardMaterial({ color: 0x20265f, roughness: 0.76 }),
-      hoodieLight: new THREE.MeshStandardMaterial({ color: 0xf23898, roughness: 0.62 }),
-      eye: new THREE.MeshStandardMaterial({ color: 0xf8eee8, roughness: 0.3 }),
-      iris: new THREE.MeshStandardMaterial({ color: 0x14d6cf, roughness: 0.28 }),
-      pupil: new THREE.MeshStandardMaterial({ color: 0x181521, roughness: 0.2 }),
-      shine: new THREE.MeshBasicMaterial({ color: 0xffffff })
+      skin: new THREE.MeshPhysicalMaterial({ color: 0xc4826d, roughness: 0.66, clearcoat: 0.12, clearcoatRoughness: 0.72 }),
+      skinLight: new THREE.MeshPhysicalMaterial({ color: 0xd99a82, roughness: 0.62, clearcoat: 0.16, clearcoatRoughness: 0.68 }),
+      skinShade: new THREE.MeshStandardMaterial({ color: 0x945e55, roughness: 0.78 }),
+      hair: new THREE.MeshStandardMaterial({ color: 0x211d27, roughness: 0.58 }),
+      hairLight: new THREE.MeshStandardMaterial({ color: 0x514354, roughness: 0.55 }),
+      hoodie: new THREE.MeshStandardMaterial({ color: 0x182840, roughness: 0.84 }),
+      hoodieLight: new THREE.MeshStandardMaterial({ color: 0x5276a8, roughness: 0.62 }),
+      eye: new THREE.MeshStandardMaterial({ color: 0xf1e7df, roughness: 0.28 }),
+      iris: new THREE.MeshPhysicalMaterial({ color: 0x438ba6, roughness: 0.24, clearcoat: 0.8 }),
+      pupil: new THREE.MeshStandardMaterial({ color: 0x14171b, roughness: 0.18 }),
+      shine: new THREE.MeshBasicMaterial({ color: 0xffffff }),
+      seam: new THREE.MeshStandardMaterial({ color: 0x637d9b, roughness: 0.8 })
     };
 
-    function addSphere(material, position, scale) {
-      const part = new THREE.Mesh(new THREE.SphereGeometry(1, 32, 24), material);
+    const torso = new THREE.Group();
+    character.add(torso);
+    const head = new THREE.Group();
+    head.position.set(0, 0.72, 0);
+    character.add(head);
+
+    function addSphere(material, position, scale, parent = character, segments = 40) {
+      const part = new THREE.Mesh(new THREE.SphereGeometry(1, segments, 32), material);
       part.position.set(position[0], position[1], position[2]);
       part.scale.set(scale[0], scale[1], scale[2]);
-      character.add(part);
+      parent.add(part);
       return part;
     }
 
-    addSphere(materials.hoodie, [0, -1.05, 0], [1.18, 0.9, 0.7]);
-    addSphere(materials.hoodieLight, [0, -0.58, 0.34], [0.59, 0.22, 0.34]);
-    addSphere(materials.skin, [0, -0.29, 0], [0.27, 0.45, 0.29]);
-    addSphere(materials.skinLight, [0, 0.72, 0], [0.76, 0.94, 0.67]);
+    function addCurve(parent, points, material, radius = 0.012) {
+      const curve = new THREE.CatmullRomCurve3(points.map(point => new THREE.Vector3(...point)));
+      const line = new THREE.Mesh(new THREE.TubeGeometry(curve, 28, radius, 8, false), material);
+      parent.add(line);
+      return line;
+    }
 
-    const earGeometry = new THREE.SphereGeometry(1, 24, 20);
+    addSphere(materials.hoodie, [0, -1.05, 0], [1.12, 0.9, 0.69], torso);
+    addSphere(materials.hoodieLight, [0, -0.58, 0.34], [0.5, 0.2, 0.3], torso);
+    addSphere(materials.skin, [0, -0.29, 0], [0.27, 0.45, 0.29], torso);
+
+    const collar = new THREE.Mesh(new THREE.TorusGeometry(0.3, 0.065, 14, 48), materials.hoodieLight);
+    collar.position.set(0, -0.43, 0.2);
+    collar.rotation.x = Math.PI / 2;
+    torso.add(collar);
+    addCurve(torso, [[-0.42, -0.8, 0.49], [-0.22, -0.96, 0.63], [0, -1.02, 0.67]], materials.seam, 0.009);
+    addCurve(torso, [[0.42, -0.8, 0.49], [0.22, -0.96, 0.63], [0, -1.02, 0.67]], materials.seam, 0.009);
+
+    addSphere(materials.skinLight, [0, 0, 0], [0.73, 0.94, 0.66], head);
+    const earGeometry = new THREE.SphereGeometry(1, 32, 24);
+    const blinkEyes = [];
     [-1, 1].forEach(side => {
       const ear = new THREE.Mesh(earGeometry, materials.skin);
-      ear.position.set(side * 0.72, 0.76, -0.02);
-      ear.scale.set(0.19, 0.25, 0.15);
-      character.add(ear);
+      ear.position.set(side * 0.7, 0.03, -0.02);
+      ear.scale.set(0.18, 0.24, 0.14);
+      head.add(ear);
+      addSphere(materials.skinShade, [side * 0.73, 0.03, 0.092], [0.06, 0.13, 0.035], head, 24);
 
-      const eyeWhite = new THREE.Mesh(earGeometry, materials.eye);
-      eyeWhite.position.set(side * 0.285, 0.84, 0.66);
-      eyeWhite.scale.set(0.115, 0.14, 0.065);
-      character.add(eyeWhite);
+      const eye = new THREE.Group();
+      eye.position.set(side * 0.275, 0.12, 0.61);
+      head.add(eye);
+      blinkEyes.push(eye);
+      addSphere(materials.eye, [0, 0, 0.04], [0.108, 0.125, 0.055], eye, 32);
+      addSphere(materials.iris, [side * 0.008, -0.002, 0.085], [0.056, 0.073, 0.029], eye, 32);
+      addSphere(materials.pupil, [side * 0.008, -0.002, 0.108], [0.029, 0.048, 0.015], eye, 24);
+      addSphere(materials.shine, [-0.018, 0.026, 0.122], [0.014, 0.018, 0.008], eye, 16);
 
-      addSphere(materials.iris, [side * 0.285 + 0.012, 0.835, 0.714], [0.061, 0.08, 0.034]);
-      addSphere(materials.pupil, [side * 0.285 + 0.015, 0.835, 0.744], [0.031, 0.052, 0.018]);
-      addSphere(materials.shine, [side * 0.285, 0.866, 0.761], [0.017, 0.021, 0.01]);
-      addSphere(materials.hair, [side * 0.29, 1.06, 0.69], [0.17, 0.045, 0.045]);
+      const browPoints = side < 0
+        ? [[-0.4, 0.31, 0.63], [-0.28, 0.35, 0.66], [-0.16, 0.32, 0.63]]
+        : [[0.16, 0.32, 0.63], [0.28, 0.35, 0.66], [0.4, 0.31, 0.63]];
+      addCurve(head, browPoints, materials.hair, 0.025);
     });
 
-    addSphere(materials.skinLight, [0, 0.61, 0.73], [0.085, 0.14, 0.09]);
-    addSphere(materials.skin, [0, 0.48, 0.71], [0.14, 0.05, 0.055]);
+    addSphere(materials.skin, [0, -0.09, 0.675], [0.07, 0.12, 0.105], head, 32);
+    addSphere(materials.skinShade, [-0.045, -0.17, 0.723], [0.022, 0.012, 0.012], head, 16);
+    addSphere(materials.skinShade, [0.045, -0.17, 0.723], [0.022, 0.012, 0.012], head, 16);
+    addCurve(head, [[-0.19, -0.34, 0.64], [-0.1, -0.4, 0.7], [0, -0.42, 0.72], [0.1, -0.4, 0.7], [0.19, -0.34, 0.64]], materials.skinShade, 0.018);
 
-    const smileCurve = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(-0.19, 0.33, 0.68),
-      new THREE.Vector3(-0.1, 0.29, 0.73),
-      new THREE.Vector3(0, 0.28, 0.75),
-      new THREE.Vector3(0.1, 0.29, 0.73),
-      new THREE.Vector3(0.19, 0.33, 0.68)
-    ]);
-    character.add(new THREE.Mesh(
-      new THREE.TubeGeometry(smileCurve, 20, 0.018, 8, false),
-      new THREE.MeshStandardMaterial({ color: 0x874c56, roughness: 0.7 })
-    ));
-
-    const hairCap = new THREE.Mesh(new THREE.SphereGeometry(1, 32, 20), materials.hair);
-    hairCap.position.set(0, 1.47, -0.02);
-    hairCap.scale.set(0.81, 0.45, 0.72);
-    character.add(hairCap);
-
-    [-0.48, -0.22, 0.04, 0.3, 0.54].forEach((x, index) => {
+    const hairCap = new THREE.Mesh(new THREE.SphereGeometry(1, 40, 28), materials.hair);
+    hairCap.position.set(0, 0.74, -0.02);
+    hairCap.scale.set(0.78, 0.43, 0.7);
+    head.add(hairCap);
+    [-0.5, -0.28, -0.05, 0.2, 0.44, 0.6].forEach((x, index) => {
       const lock = new THREE.Mesh(
-        new THREE.ConeGeometry(index % 2 ? 0.24 : 0.29, index % 2 ? 0.52 : 0.68, 8),
-        index % 2 ? materials.hair : materials.hairLight
+        new THREE.ConeGeometry(index % 2 ? 0.2 : 0.25, index % 2 ? 0.48 : 0.6, 12),
+        index % 3 === 0 ? materials.hairLight : materials.hair
       );
-      lock.position.set(x, 1.67 + (index % 2) * 0.05, 0.24);
-      lock.rotation.z = -x * 0.45;
-      lock.rotation.x = -0.16;
-      character.add(lock);
+      lock.position.set(x, 0.94 + (index % 2) * 0.035, 0.22);
+      lock.rotation.z = -x * 0.4;
+      lock.rotation.x = -0.2;
+      head.add(lock);
     });
 
-    const drawstringMaterial = new THREE.MeshStandardMaterial({ color: 0xaaa3bd, roughness: 0.62 });
-    [-0.13, 0.13].forEach(x => {
-      const string = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.4, 8), drawstringMaterial);
-      string.position.set(x, -0.91, 0.64);
-      character.add(string);
+    const drawstringMaterial = new THREE.MeshStandardMaterial({ color: 0xc2ccd9, roughness: 0.58 });
+    [-0.12, 0.12].forEach(x => {
+      const string = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.38, 10), drawstringMaterial);
+      string.position.set(x, -0.9, 0.63);
+      torso.add(string);
+      addSphere(materials.hoodieLight, [x, -1.1, 0.63], [0.025, 0.04, 0.025], torso, 16);
     });
+
+    const leftArm = new THREE.Group();
+    leftArm.position.set(-0.82, -0.78, 0.02);
+    character.add(leftArm);
+    const upperArmGeometry = new THREE.CylinderGeometry(0.15, 0.19, 0.56, 20, 1);
+    const leftSleeve = new THREE.Mesh(upperArmGeometry, materials.hoodie);
+    leftSleeve.position.set(-0.05, -0.27, 0);
+    leftSleeve.rotation.z = -0.18;
+    leftArm.add(leftSleeve);
+    const leftForearm = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.13, 0.4, 18, 1), materials.skinLight);
+    leftForearm.position.set(-0.12, -0.7, 0.03);
+    leftForearm.rotation.z = -0.12;
+    leftArm.add(leftForearm);
+    addSphere(materials.skinLight, [-0.15, -0.94, 0.06], [0.14, 0.16, 0.13], leftArm, 24);
+
+    const waveArm = new THREE.Group();
+    waveArm.position.set(0.82, -0.78, 0.02);
+    character.add(waveArm);
+    const rightSleeve = new THREE.Mesh(upperArmGeometry, materials.hoodie);
+    rightSleeve.position.set(0.05, -0.27, 0);
+    rightSleeve.rotation.z = 0.18;
+    waveArm.add(rightSleeve);
+    const rightForearm = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.13, 0.4, 18, 1), materials.skinLight);
+    rightForearm.position.set(0.12, -0.7, 0.03);
+    rightForearm.rotation.z = 0.12;
+    waveArm.add(rightForearm);
+    addSphere(materials.skinLight, [0.15, -0.94, 0.06], [0.14, 0.16, 0.13], waveArm, 24);
+    addSphere(materials.skinLight, [0.28, -0.9, 0.08], [0.065, 0.11, 0.08], waveArm, 20);
+    for (let finger = 0; finger < 3; finger += 1) {
+      const digit = new THREE.Mesh(new THREE.CylinderGeometry(0.027, 0.035, 0.16, 10), materials.skinLight);
+      digit.position.set(0.12 + finger * 0.045, -1.075, 0.08);
+      digit.rotation.z = (finger - 1) * 0.12;
+      waveArm.add(digit);
+    }
 
     let pointerX = 0;
     let pointerY = 0;
@@ -580,9 +632,28 @@ function initHeroCharacter() {
 
     function renderFrame(time) {
       if (!reduceMotion) {
-        character.rotation.y += (pointerX + Math.sin(time * 0.00045) * 0.08 - character.rotation.y) * 0.035;
-        character.rotation.x += (-pointerY - character.rotation.x) * 0.035;
-        character.position.y = Math.sin(time * 0.0012) * 0.055;
+        const entranceProgress = Math.min(1, time / 1500);
+        const entranceEase = 1 - Math.pow(1 - entranceProgress, 3);
+        const entranceSpin = Math.PI * 2 * (1 - entranceEase);
+        const waveClock = time < 2600 ? -1 : (time - 2600) % 9200;
+        const greeting = time < 2600
+          ? time < 350 ? time / 350 : time < 1850 ? 1 : (2600 - time) / 750
+          : waveClock < 1450 ? Math.sin((waveClock / 1450) * Math.PI) : 0;
+        const blinkClock = time % 4700;
+        const blink = Math.max(0, 1 - Math.abs(blinkClock - 150) / 90);
+
+        character.rotation.y = pointerX + Math.sin(time * 0.0005) * 0.055 + entranceSpin;
+        character.rotation.x = -pointerY + Math.sin(time * 0.00085) * 0.025;
+        character.rotation.z = Math.sin(time * 0.0007) * 0.018;
+        character.position.y = Math.sin(time * 0.0023) * 0.045 + Math.sin(entranceEase * Math.PI) * 0.16;
+        character.scale.setScalar(0.88 + entranceEase * 0.13 + Math.sin(time * 0.006) * 0.012 * (1 - entranceEase));
+        head.rotation.x = Math.sin(time * 0.0011) * 0.035;
+        head.rotation.y = Math.sin(time * 0.0008) * 0.075;
+        torso.scale.y = 1 + Math.sin(time * 0.0023 + 0.5) * 0.012;
+        waveArm.rotation.z = 0.08 + greeting * 2.55 + Math.sin(time * 0.018) * greeting * 0.18;
+        waveArm.rotation.x = Math.sin(time * 0.009) * greeting * 0.08;
+        leftArm.rotation.z = -0.08 + Math.sin(time * 0.0012) * 0.025;
+        blinkEyes.forEach(eye => { eye.scale.y = 1 - blink * 0.9; });
       }
       renderer.render(scene, camera);
       canvas.parentElement.classList.add('scene-ready');
